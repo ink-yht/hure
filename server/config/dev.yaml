@@ -1,0 +1,6 @@
+MySQL:
+  dsn: "root:root@tcp(localhost:3306)/hure?"
+Redis:
+  Addr: "127.0.0.1:6379"
+uploads:
+  path: uploads/
