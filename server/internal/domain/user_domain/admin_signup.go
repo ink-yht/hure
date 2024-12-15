@@ -9,7 +9,7 @@ var (
 	emailRegex                          = regexp2.MustCompile(`^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$`, regexp2.None)
 	passwordRegex                       = regexp2.MustCompile(`^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[._~!@#$^&*])[A-Za-z0-9._~!@#$^&*]{8,20}$`, regexp2.None)
 	phoneRegex                          = regexp2.MustCompile(`^1[3-9]\d{9}$`, regexp2.None)
-	nicknameRegex                       = regexp2.MustCompile(`^[\u4e00 - \u9fffA - Za - z0 - 9\-_]{3,20}$`, regexp2.None)
+	nicknameRegex                       = regexp2.MustCompile(`([a-zA-Z\u4e00-\u9fa5]{2,8})`, regexp2.None)
 	signatureRegex                      = regexp2.MustCompile(`^.{0,100}$`, regexp2.None)
 	ErrTheMailboxIsNotInTheRightFormat  = errors.New("电子邮件格式无效")
 	ErrThePasswordIsNotInTheRightFormat = errors.New("密码长度必须为 8-20 个字符，并包含字母、数字和特殊字符")
@@ -29,8 +29,8 @@ type AdminRegisterRequest struct {
 	Signature       string `json:"signature"`
 }
 
-// Validate 校验请求参数
-func (req *AdminRegisterRequest) Validate() error {
+// RegisterValidate 校验请求参数
+func (req *AdminRegisterRequest) RegisterValidate() error {
 	// 校验邮箱格式
 	if match, _ := emailRegex.MatchString(req.Email); !match {
 		return ErrTheMailboxIsNotInTheRightFormat

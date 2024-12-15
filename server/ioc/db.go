@@ -15,16 +15,11 @@ func InitDB() *sql.DB {
 	if err != nil {
 		panic(fmt.Errorf("初始化配置失败: %s \n", err))
 	}
+	fmt.Println("c", c.DSN)
 	db, err := sql.Open("mysql", c.DSN)
 	if err != nil {
 		panic(err)
 	}
-	defer func(db *sql.DB) {
-		err := db.Close()
-		if err != nil {
-			panic(err)
-		}
-	}(db)
 
 	return db
 }
