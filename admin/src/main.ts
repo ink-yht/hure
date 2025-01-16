@@ -1,3 +1,6 @@
+
+// 路由进度条
+import "nprogress/nprogress.css";
 import "@/assets/base.css"
 
 import { createApp } from 'vue'
@@ -12,6 +15,7 @@ import '@arco-design/web-vue/dist/arco.css';
 // 额外引入图标库
 import ArcoVueIcon from '@arco-design/web-vue/es/icon';
 import "@/assets/public.less"
+
 
 
 const app = createApp(App)

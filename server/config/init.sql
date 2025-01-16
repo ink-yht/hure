@@ -1,7 +1,7 @@
 -- 用户表
 create table `user` (
                         `id` int auto_increment primary key,
-                        `open_id` varchar(50) not null unique,
+                        `openid` varchar(50) not null unique,
                         `nickname` varchar(100),
                         `avatar` varchar(255),
                         `phone` varchar(11),

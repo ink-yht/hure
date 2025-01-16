@@ -1,4 +1,5 @@
 import {createRouter, createWebHistory} from 'vue-router'
+import NProgress from "nprogress"; // 导入 nprogress模块
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -8,7 +9,7 @@ const router = createRouter({
             name: "web",
             path: "/",
             // component: () =>import("@/views/web/index.vue"),
-            redirect: "/admin", // 重定向
+            redirect: "/admin/home/workbench", // 重定向
         },
         // 登录
         {
@@ -20,18 +21,12 @@ const router = createRouter({
         {
             name: "admin",
             path: "/admin",
-            meta: {
-                title: "首页"
-            },
             component: () => import("@/views/admin/index.vue"),
             children: [
                 // 首页
                 {
                     name: "home",
                     path: "home",
-                    meta: {
-                        title: "首页"
-                    },
                     component: () => import("@/views/admin/home/index.vue"),
                     children: [
                         {
@@ -305,6 +300,17 @@ const router = createRouter({
             ]
         }
     ],
+})
+
+
+router.beforeEach((to, from, next) => {
+    NProgress.start();//开启进度条
+    next()
+})
+//当路由进入后：关闭进度条
+router.afterEach(() => {
+    // 在即将进入新的页面组件前，关闭掉进度条
+    NProgress.done()//完成进度条
 })
 
 export default router

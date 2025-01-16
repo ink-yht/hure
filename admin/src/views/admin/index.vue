@@ -5,6 +5,9 @@ import Ink_menu from "@/components/admin/ink_menu.vue";
 import { collapsed } from "@/components/admin/ink_menu";
 import Ink_breadcrumb from "@/components/admin/ink_breadcrumb.vue";
 import Ink_user_dropdown from "@/components/common/ink_user_dropdown.vue";
+import Ink_tabs from "@/components/admin/ink_tabs.vue";
+import Ink_logo from "@/components/admin/ink_logo.vue";
+
 </script>
 
 <template>
@@ -13,9 +16,7 @@ import Ink_user_dropdown from "@/components/common/ink_user_dropdown.vue";
     <!--  左边栏  -->
     <div class="ink_aside" :class="{collapsed: collapsed}">
       <!--   logo   -->
-      <div class="ink_logo">
-
-      </div>
+      <ink_logo></ink_logo>
       <!--   菜单栏   -->
       <ink_menu></ink_menu>
     </div>
@@ -35,12 +36,14 @@ import Ink_user_dropdown from "@/components/common/ink_user_dropdown.vue";
         </div>
       </div>
       <!--  导航    -->
-      <div class="ink_tabs">
-
-      </div>
+      <ink_tabs></ink_tabs>
       <!--  主题容器    -->
-      <div class="ink_container">
-        <router-view></router-view>
+      <div class="ink_container scrollbar">
+        <router-view class="ink_base_view" v-slot="{Component}">
+          <transition name="fade" mode="out-in">
+            <component :is="Component"></component>
+          </transition>
+        </router-view>
       </div>
     </div>
   </div>
@@ -111,7 +114,40 @@ import Ink_user_dropdown from "@/components/common/ink_user_dropdown.vue";
       overflow-y: auto;
       overflow-x: hidden;
       background-color: @color-fill-2;
+      padding: 20px;
+
+      .ink_base_view{
+        background-color: var(--color-bg-1);
+        border-radius: 5px;
+        min-height: calc(100vh - 130px);
+      }
     }
   }
+}
+
+// 组件刚开始离开
+.fade-leave-active{
+}
+// 组件离开结束
+.fade-leave-to {
+  transform: translateX(30px);
+  opacity: 0;
+}
+
+// 组件刚开始进入
+.fade-enter-active {
+  transform: translateX(-30px);
+  opacity: 1;
+}
+
+// 组件进入完成
+.fade-enter-to {
+  transform: translateX(0px);
+  opacity: 0;
+}
+
+// 正在进入和离开
+.fade-leave-active, .fade-enter-active {
+  transition: all .3s ease-out;
 }
 </style>
