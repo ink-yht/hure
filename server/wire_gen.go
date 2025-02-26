@@ -21,14 +21,10 @@ func InitWebServer() *gin.Engine {
 	logger := ioc.InitLogger()
 	v := ioc.InitMiddleWares(logger)
 	db := ioc.InitDB()
-	userDao := user_dao.NewUserDAO(db)
-	userRepository := user_repo.NewUserRepository(userDao)
-	userService := user_service.NewUserService(userRepository)
-	userHandler := user_web.NewUserHandler(userService, logger)
 	adminDao := user_dao.NewAdminDAO(db)
 	adminRepository := user_repo.NewAdminRepository(adminDao)
 	adminService := user_service.NewAdminService(adminRepository)
 	adminHandler := user_web.NewAdminHandler(adminService, logger)
-	engine := ioc.InitWebServer(v, userHandler, adminHandler)
+	engine := ioc.InitWebServer(v, adminHandler)
 	return engine
 }

@@ -26,7 +26,7 @@ type Resume struct {
 	UpdatedAt int64  `json:"updated_at"`                         // 更新时间
 }
 
-// BusinessLicense 招聘者营业执照表 Recruiters
+// BusinessLicense 招聘者营业执照表
 type BusinessLicense struct {
 	ID        uint   `gorm:"primaryKey;autoIncrement" json:"id"` // ID
 	UserID    uint   `gorm:"not null;unique" json:"user_id"`     // 用户 ID 外键

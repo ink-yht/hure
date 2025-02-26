@@ -109,7 +109,7 @@ func (svc *AdminServiceImpl) Login(ctx context.Context, req user_domain.AdminLog
 	}
 
 	// 生成 JWT，根据用户 ID 和用户代理字符串定制化生成访问令牌。
-	token, err := SetJWTToken(user.ID, userAgent)
+	token, err := svc.setJWTToken(user.ID, userAgent)
 	if err != nil {
 		return "", err
 	}
@@ -164,8 +164,8 @@ func (svc *AdminServiceImpl) Signup(ctx context.Context, req user_domain.AdminRe
 	return nil
 }
 
-// SetJWTToken 生成 token
-func SetJWTToken(uid uint, userAgent string) (string, error) {
+// setJWTToken 生成 token
+func (svc *AdminServiceImpl) setJWTToken(uid uint, userAgent string) (string, error) {
 	tokenStr := jwt.NewWithClaims(jwt.SigningMethodHS256, UserClaims{
 		Id:        uid,
 		UserAgent: userAgent,

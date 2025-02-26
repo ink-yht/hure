@@ -12,14 +12,14 @@ import (
 )
 
 func InitWebServer(mdls []gin.HandlerFunc,
-	userHdl *user_web.UserHandler,
+	//userHdl *user_web.UserHandler,
 	adminHdl *user_web.AdminHandler,
 ) *gin.Engine {
 
 	server := gin.Default()
 	server.StaticFS("uploads", http.Dir("uploads"))
 	server.Use(mdls...)
-	userHdl.RegisterRoutes(server)
+	//userHdl.RegisterRoutes(server)
 	adminHdl.RegisterRoutes(server)
 	return server
 }
@@ -33,7 +33,7 @@ func InitMiddleWares(l logger.Logger) []gin.HandlerFunc {
 		//	l.Debug("HTTP请求", logger.Field{Key: "al", Value: al})
 		//}).AllowReqBody().AllowRespBody().Build(),
 
-		middlewares.NewLoginJWTMiddlewareBuilder().IgnorePaths("/users/login").IgnorePaths("/admins/login").Build(),
+		middlewares.NewLoginJWTMiddlewareBuilder().IgnorePaths("/admins/login").Build(),
 
 		//ratelimit.NewBuilder(redisClient, time.Minute, 100).Build(),
 	}
